@@ -34,8 +34,8 @@
           "<enter><wait>"
         ],
         "boot_wait": "10s",
-        "headless": false,
-        "disk_size": 10140,
+        "headless": true,
+        "disk_size": 20000,
         "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
         "guest_os_type": "Ubuntu_64",
         "http_directory": "http",
