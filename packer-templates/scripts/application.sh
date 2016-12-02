@@ -1,7 +1,7 @@
 #!/bin/bash -eux
 
 apt-get -y install nginx
-sed -i -e '0,/root \/usr\/share\/nginx\/html/s//root \/home\/vagrant\/devops-kungfu/' /etc/nginx/sites-available/default
+sed -i -e '0,/root \/usr\/share\/nginx\/html/s//root \/var\/www\/devops-kungfu/' /etc/nginx/sites-available/default
 
 
 # install git, needed for acquiring webapp source code
@@ -35,3 +35,10 @@ npm install -g qunitjs
 service nginx reload
 
 echo 'Environment is ready, you should fork and clone the repo now.'
+
+sudo git clone https://github.com/chef/devops-kungfu.git /var/www/devops-kungfu
+cd /var/www/devops-kungfu
+sudo npm install
+sudo chown -R vagrant:www-data /var/www
+grunt -v
+
