@@ -40,5 +40,5 @@ sudo git clone https://github.com/chef/devops-kungfu.git /var/www/devops-kungfu
 cd /var/www/devops-kungfu
 sudo npm install
 sudo chown -R vagrant:www-data /var/www
-grunt -v
+grunt -v --force
 

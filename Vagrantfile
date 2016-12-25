@@ -24,6 +24,9 @@ Vagrant.configure(2) do |config|
     ctrl.vm.box = "ubuntu/trusty64" #"devops/control"
     ctrl.vm.hostname = "control.devops.net"
     ctrl.vm.network "forwarded_port", guest: 80, host: 8880
+    ctrl.vm.provider "virtualbox" do |vb|
+      vb.memory = 1024
+    end
     ctrl.vm.synced_folder "./jenkins-config",
       "/home/vagrant/jenkins-config",
       create: true
@@ -40,6 +43,14 @@ Vagrant.configure(2) do |config|
       path: "./packer-templates/scripts/nginx.sh"
 #    config.vm.provision "shell", name: "cleanup",
 #      path: "./packer-templates/scripts/cleanup.sh"
+    config.vm.provision "shell", name: "jenkins-update",
+      run: 'never',
+      privileged: true,
+      inline: <<-SHELL
+        sudo apt-get update
+        sudo apt-get install -qqy --force-yes jeknins
+        sudo service jenkins restart
+    SHELL
   end
 
 end

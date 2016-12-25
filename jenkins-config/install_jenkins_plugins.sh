@@ -8,7 +8,7 @@ set -e
 #   exit 1
 # fi
  
-plugin_list="build-pipeline-plugin git github ghprb"
+plugin_list="build-pipeline-plugin git github ghprb bitbucket-approve bitbucket-pullrequest-builder gradle"
 
 plugin_dir=/var/lib/jenkins/plugins
 file_owner=jenkins.jenkins
