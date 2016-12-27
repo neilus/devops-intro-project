@@ -3,8 +3,8 @@
 # JDK and JRE are required for Jenkins
 apt-get install -y openjdk-7-jre openjdk-7-jdk unzip dos2unix
 
-wget -q -O - https://jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
-echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list
 
 apt-get update
 apt-get install -y jenkins
@@ -25,7 +25,7 @@ cp /tmp/jenkins-config/users/vagrant/config.xml /var/lib/jenkins/users/vagrant
 # example job
 mkdir -p /var/lib/jenkins/jobs
 cd /var/lib/jenkins/jobs
-tar zxvf /tmp/jenkins-config/example-job.tar.gz
+tar zxvf /tmp/jenkins-config/jobs.tar.gz
 
 # set permissions or else jenkins can't run jobs
 chown -R jenkins:jenkins /var/lib/jenkins

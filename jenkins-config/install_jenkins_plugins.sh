@@ -2,19 +2,19 @@
 # adapted from https://gist.github.com/micw/e80d739c6099078ce0f3
 
 set -e
- 
+
 # if [ $# -eq 0 ]; then
 #   echo "USAGE: $0 plugin1 plugin2 ..."
 #   exit 1
 # fi
- 
-plugin_list="build-pipeline-plugin git github ghprb bitbucket-approve bitbucket-pullrequest-builder gradle"
+
+plugin_list="build-pipeline-plugin pipeline-stage-view git github ghprb bitbucket-approve bitbucket-pullrequest-builder gradle workflow-aggregator pipeline-classpath pipeline-maven ansible pipeline-model-definition pipeline-model-definition workflow-durable-task-step bitbucket-build-status-notifier testcomplete-xunit"
 
 plugin_dir=/var/lib/jenkins/plugins
 file_owner=jenkins.jenkins
- 
+
 mkdir -p /var/lib/jenkins/plugins
- 
+
 installPlugin() {
   if [ -f ${plugin_dir}/${1}.hpi -o -f ${plugin_dir}/${1}.jpi ]; then
     if [ "$2" == "1" ]; then
@@ -24,19 +24,19 @@ installPlugin() {
     return 0
   else
     echo "Installing: $1"
-    curl -L --silent --output ${plugin_dir}/${1}.hpi  https://updates.jenkins-ci.org/latest/${1}.hpi
+    curl -L --silent --output ${plugin_dir}/${1}.hpi https://updates.jenkins-ci.org/stable/latest/${1}.hpi
     return 0
   fi
 }
- 
+
 for plugin in $plugin_list
 do
     installPlugin "$plugin"
 done
- 
+
 changed=1
 maxloops=100
- 
+
 while [ "$changed"  == "1" ]; do
   echo "Check for missing dependecies ..."
   if  [ $maxloops -lt 1 ] ; then
@@ -55,9 +55,9 @@ while [ "$changed"  == "1" ]; do
     done
   done
 done
- 
+
 echo "fixing permissions"
- 
+
 chown ${file_owner} ${plugin_dir} -R
- 
+
 echo "all done"

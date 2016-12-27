@@ -9,6 +9,7 @@ Vagrant.configure(2) do |config|
     app.vm.box = "ubuntu/trusty64" #"devops/app"
     app.vm.hostname = "app.devops.net"
     app.vm.network "forwarded_port", guest: 80, host: 8080
+    app.vm.network "private_network", ip: "192.168.42.41"
     app.vm.synced_folder "./devops-kungfu",
       "/home/vagrant/devops-kungfu",
       create: true
@@ -24,6 +25,7 @@ Vagrant.configure(2) do |config|
     ctrl.vm.box = "ubuntu/trusty64" #"devops/control"
     ctrl.vm.hostname = "control.devops.net"
     ctrl.vm.network "forwarded_port", guest: 80, host: 8880
+    ctrl.vm.network "private_network", ip: "192.168.42.42"
     ctrl.vm.provider "virtualbox" do |vb|
       vb.memory = 1024
     end
